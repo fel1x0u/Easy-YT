@@ -7,16 +7,27 @@ from threading import Thread
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import requests
 
+
+browser = input('What browser do you use? (Accepted: Chrome, Firefox)\n')
 # Selenium Stuff
 options = Options()
 options.headless = True
-try:
-    driver = webdriver.Chrome("Tools\\chromedriver.exe", options=options)
-except:
-    tkinter.messagebox.showerror("Error","Chrome Driver Missing Download and install on Tools\\chromedriver.exe")
-    exit()
 
+if browser.lower() == 'chrome':
+	try:
+		driver = webdriver.Chrome("Tools\\chromedriver.exe", options=options)
+	except FileNotFoundError:
+		tkinter.messagebox.showerror("Error", "The ChromeDriver is not installed, make sure it is installed as 'Tools\\chromedriver.exe'.")
+		exit()
+elif browser.lower() == 'firefox':
+	try:
+		driver = webdriver.Firefox("Tools\geckodriver.exe", options=options)
+	except FileNotFoundError:
+		tkinter.messagebox.showerror("Error", "The GeckoDriver is not installed, make sure it is installed as 'Tools\\geckodriver.exe'.")
+
+		o
 running = False
 
 class AppGUI(tkinter.Tk):
